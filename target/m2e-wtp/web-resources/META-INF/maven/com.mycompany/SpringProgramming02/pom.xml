@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.mycompany</groupId>
+	<artifactId>SpringProgramming02</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/log4j/log4j 위 위치에 가면 아래 Maven 코드가 
+			있다. 이 위치에 이러한 형식으로 추가하고 저장하면 무엇인가 저장된다. 이후 Dependencies 태그를 보면 다운 됬다는 것을 
+			알 수 있다. -->
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 SLF4J LOG4J 
+			12 Binding » 1.7.28 -->
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+		<!-- <dependency> <groupId>org.apache.logging.log4j</groupId> <artifactId>log4j-slf4j-impl</artifactId> 
+			<version>2.12.1</version> </dependency> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- 어떤범위에서 해당 라이브러리를 사용할 것인가를 설정한다. -->
+		<!-- 하지만 자동적으로 의존성 라이브러리까지 다운받기때문에 slf4j-log4j12 를 받으면 log4j와 slf4j-api 
+			까지 같이 다운된다. 즉 이 코드를 추가하는 것 만으로 라이브러리에 등록할 수 있다. 관련 정보를 보고 싶다면 View All의 pom파일을 
+			확인하면 된다. -->
+		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+		<dependency>
+			<!-- logback 라이브러리 설치 -->
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+			<!-- 범위 필요 없음 <scope>test</scope> -->
+		</dependency>
+		<!-- logback -->
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>5.2.0.RELEASE</version>
+		</dependency>
+		<!-- spring mvc -->
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl -->
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- jstl 추가 설치. jstl 2011년 버전의 것이다. -->
+
+	</dependencies>
+
+
+	<build>
+		<!-- 컴파일이 어떻게 될 것인가를 확인 -->
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

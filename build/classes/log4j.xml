@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<!-- value="System.out" 로 인하여 콘솔에 출력하라고 되어있는 것이다. -->
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- layout 어떻게 출력할 것인가 -->
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<!-- value="%-5p: %c - %m%n" 출력 방식 설정 -->
+			<!-- -5 좌측부터 5칸을 할당하여 출력 | %p : 
+				%c : class | %m : 출력 내용 | %n : 계행
+			-->
+		</layout>
+	</appender>
+	
+	
+	<!-- Application Loggers -->
+	<!-- 특정 위치에서의 로그 설정을 위해-->
+	<logger name="com.mycompany.web">
+	<!-- 경로 설정. com.mycompany.web 패키지 하위에서 기록되는 log들을 대상으로 함 -->
+		<level value="debug" />
+		<!-- <appender-ref ref = "console"/> 이게 있으면 2번 출력되더라 -->
+		<!-- <appender-ref ref = "console"/>
+			appender의 이름이 console인 것을 참고하여 생성한다. -->
+	</logger>
+	
+	<!-- Root Logger -->
+	<root>
+	<!-- 위 Application Loggers에 포함되지 않은 나머지 Log들에 대한 설정  -->
+		<priority value="info" />
+		<!-- info이상의 받을 수 있는 값을 출력한다. 즉 Log level에 따른 log를 받을 수 있다.  -->
+		<!-- 단 <priority value="XXX" /> XXX의 자리에 debug를 쓴다면
+		 debug이상의 log 레벨의 것을 받을 수 있지만
+		 debug레벨이 가장 낮은 레벨이기에 모든 내용을 다 받을 수 있다. -->
+		<appender-ref ref="console" />
+	</root>
+	
+</log4j:configuration>

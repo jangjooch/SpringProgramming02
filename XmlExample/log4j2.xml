@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} | [%t]  %-5level  %M() | %logger{10} - %msg%n" />
+			<!-- %t : threadName -->
+			<!-- %level : Log Level -->
+			<!-- %logger{}: 실행된 class 위치 == %c{} 와 같은 쓰임이다. {n} n의 값에 따라 출력되는 내용이 
+				다르다. n 은 그만큼의 상위 까지 출력하겠다는 것이다. 만약 1이라면 해당 파일 명까지, 2라면 디렉토리 명까지 -->
+			<!-- %M : 실행된 메소드 이름 -->
+		</Console>
+		<File name="File" fileName="D:/Tmp/logs/app.log">
+			<!-- 해당 파일에 Log를 저장한다. 이후 ATOM으로 열어볼 수 있다. -->
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} | [%t]  %-5level  %M() | %logger{10} - %msg%n" />
+		</File>
+	</Appenders>
+
+
+	<Loggers>
+		<Logger name="com.mycompany.web.controller" level="warn" additivity="false">
+		<!-- name="com.mycompany.web.controller" 패키지 지정 -->
+		<!-- additivity="false" 이벤트에 의해서 기본적으로 되는 로그를 기록하지 않기 위함
+			 기본적으로 true로 선언되어 있다. true라면 모든 이벤트의 로그들까지 출력한다. -->
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="com.mycompany.web.dao" level="debug" additivity="false">
+		<!-- name="com.mycompany.web.controller" 패키지 지정 -->
+			<AppenderRef ref="Console" />
+		</Logger>
+				
+		<Root level="error">
+			<!-- 패키지와 상관없이 모든 로그들에 대한 설정 -->
+			<!-- 출력될 Log Level 설정 한계치 설정된 이상 레벨의 로그만 출력토록 한다. -->
+			<AppenderRef ref="File" />
+			<!-- Appender에 있는 File이란 이름의 출력 설정을 가져와 사용한다. -->
+		</Root>
+	</Loggers>
+</Configuration>
