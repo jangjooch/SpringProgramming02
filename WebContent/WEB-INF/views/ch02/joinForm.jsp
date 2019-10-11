@@ -9,8 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript"
-	src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js">
-	
+	src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js">	
 </script>
 <!-- src = 에서의 주소는 context-root가 생략된것이 아니다.
 			 그렇기에 절대 주소에서 context-root를 포함하여 보여주어야 한다.

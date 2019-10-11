@@ -21,6 +21,7 @@ public class Ch04Controller {
 	private static final Logger logger = LoggerFactory.getLogger(Ch04Controller.class);
 	
 	@RequestMapping("/content")
+	// RequestParam을 받기 위하여 @RequestHeader("User-Agent")를 사용.
 	public String content(@RequestHeader("User-Agent") String userAgent,
 			HttpServletRequest request) {
 		logger.info("User-Agent : " + userAgent);

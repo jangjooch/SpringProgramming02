@@ -89,6 +89,8 @@
 					</li>
 					<li><a href = "ch06/content" target = "iframe">매개변수와 리턴 타입</a>
 					</li>
+					<li><a href = "ch08/content" target = "iframe">파일 업로드</a>
+					</li>
 					
 				</ul>
 			</div>

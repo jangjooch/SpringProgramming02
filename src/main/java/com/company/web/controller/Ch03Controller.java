@@ -43,6 +43,7 @@ public class Ch03Controller {
 	}
 	
 	@RequestMapping("/join2")
+	// command 객체를 통하여 전달된 정보에 접근한다.
 	public String getJoin2(Ch03DTOMember member) {
 		logger.info("join2 activate");
 		logger.info("mid 		: " + member.getMid());
