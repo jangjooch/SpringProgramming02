@@ -193,8 +193,7 @@
 						// 위의 data에는 HTML이나 JSON을 받을 수 있다.
 						// ch03/join3.jsp의 이동을 통해 생성된
 						// json 파일이 data에 저장된다. 그렇기에 따로 입력받지 않은
-						// mpersonal 또한 사용할 수 있는 것이다.
-						
+						// mpersonal 또한 사용할 수 있는 것이다.						
 						var html=
 							"<span>mid : " + data.mid + "</span>" + "<br>" +
 							"<span>mname : " + data.mname + "</span>" + "<br>" +

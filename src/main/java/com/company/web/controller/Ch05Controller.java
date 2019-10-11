@@ -54,7 +54,6 @@ public class Ch05Controller {
 		// html과 java가 뒤섞이여 잘 사용되지 않는다.
 		return "ch05/getBoardList2";
 		// jstl을 사용하여 html에서 간편하게 사용이 가능하다.
-
 	}
 	
 	

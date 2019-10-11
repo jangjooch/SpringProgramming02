@@ -38,8 +38,7 @@ public class Ch06Controller {
 		logger.info("ch06 activate");
 		return "ch06/content";
 	}
-	
-	
+		
 	@PostMapping("/login")
 	public String login(String memberId,String memberPassword, HttpSession session) {
 		// 파라미터의 key값을 그대로 받는다.
@@ -101,13 +100,16 @@ public class Ch06Controller {
 		// image/jpeg 처럼 Content-Type 설정이 가능하다.
 		// 혹은 이렇게 해도 됨.
 		// response.setContentType("image/jpeg");
+		
+		// Request에서 전 단계에서 이어오는 application를 받아
+		// 응답을 위한 response을 생성하고 헤더를 생성한다.
 		ServletContext application = request.getServletContext();
 		String mimeType = application.getMimeType(filename);
 		response.setHeader("Content-Type", mimeType);
 		// 이미지 파일의 경우에도 png, jpg 등 많은 종류가 있기에
 		// 미리 확장자를 알아내어 이를 Content-Type에 배정한다.
 		
-
+		
 		String userAgent = request.getHeader("User-Agent");
 		// 현재 작동중인 브라우져의 종류를 알기 위함이다.
 		String encodfilename = null;
@@ -137,8 +139,10 @@ public class Ch06Controller {
 		// 본문에 데이터 추가
 		try {
 			OutputStream os = response.getOutputStream();
+			// 반응 response를 통해 출력 생성
 			// 이렇듯 HttpResponse를 통해 구현해야 하는 경우가 있다.
 			// 이미지를 불러오기 위하여 절대경로가 필요하다.
+			// String을 제외한 나머지 data는 바이너리로 불러와야 되기 때문
 			
 			imagePath = application.getRealPath("/resources/image/"+filename);
 			logger.info(imagePath);
@@ -188,6 +192,7 @@ public class Ch06Controller {
 		count01++;
 		
 		Ch06Board board = new Ch06Board();
+		
 		board.setNumber(100);
 		board.setTitle("JSP Json Title");
 		board.setContent("JSP Json Content");

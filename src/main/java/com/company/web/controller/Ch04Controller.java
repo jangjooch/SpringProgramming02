@@ -72,7 +72,7 @@ public class Ch04Controller {
 					request.setAttribute("mname", cookie.getValue());
 				}
 			}
-		}		
+		}
 		// setAttribute로 저장하고 이를 getCookie.jsp로 전달한다.
 		return "ch04/getCookie";
 	}
