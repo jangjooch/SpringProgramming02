@@ -91,6 +91,10 @@
 					</li>
 					<li><a href = "ch08/content" target = "iframe">파일 업로드</a>
 					</li>
+					<li><a href = "ch09/content" target = "iframe">DI test</a>
+					</li>
+					<li><a href = "ch10/content" target = "iframe">DB 연동</a>
+					</li>
 					
 				</ul>
 			</div>

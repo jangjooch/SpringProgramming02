@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<!-- dto의 SQL화 -->
+	<select id="selectMemberByMid" parameterType="string"
+		resultMap="resultMember">
+		<!-- ParameterType을 string으로 하여야 Varchar타입으로 변수의 값을 설정할 수 있다. -->
+		<!-- 문서의 typeAliases 부분을 참고하여라 -->
+		<!-- id="selectMemberByMid"는 DAO에서 매게로 사용할 id를 설정하는 것이다. -->
+		<!-- 해당 sql 결과를 dto로 만든다는 뜻이다 resultMap="resultMember"
+			 즉 반환되는 테이블을 해당 이름의 resultMap설정으로 처리하겠다 -->
+		select mid, mname, mpassword from member where mid=#{mid}
+		<!-- 위와 같이 고정적인 형태로 지정하고 이후 #{mid}를 변수처리 하겠다는 것이다. -->
+	</select>
+	<!-- SQL 결과의 DTO화 -->
+	<resultMap id="resultMember" type="com.company.web.dto.Ch10Member">
+		<result column="mid" property="mid"/>
+		<!-- 해당 컬럼의 값을 Ch10Member의 SetMid함수의 매게로 주겠다 -->
+		<result column="mname" property="mname"/>
+		<result column="mpassword" property="mpassword"/>
+	</resultMap>
+
+</mapper>
+<!-- DTO와 SQL과 sql 결과를 Mapping하는 것이다. -->

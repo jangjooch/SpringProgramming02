@@ -37,5 +37,50 @@
 	<!-- 위의 명령어를 통하여 /src/main/java 밑에 
 		 어떠한 곳에 있는 것을 관리할 것 이다 라고 설정하는 것이다.
 		 즉 여기서는 /src/main/java/com.company.web의 소스들을 관리한다는 것이다. -->
-	<!-- 즉 해당 경로에 있는 Controller를 사용하여 위치 이동을 관리하도록 할 것이다. -->
+	<!-- 즉 해당 경로에 있는 소스에서 사용된 Annotation을 spring에 등록하여 관리객체화 한것이다. -->
+	<!-- #################################### -->
+	<!-- 아래의 과정은 Annotation을 사용하지 않는 방법이다. Annotation을 사용하면 편리하게 만들 수 있다. -->
+	<!-- Ch09Service_inject DI.의존성 주입 -->
+	<!-- servlet-context에 등록하여 dispatcher 실행 이전에 생성된다. -->
+	<!-- bean 자체가 객체이고 Dispater 실행 이전에 미리 생성하기 위한 설정과정이다.
+		 이를 위하여 객체 내부에 종속된 객체들을 위한 setter를 미리 property로서 설정하는 것이다.
+		 이러한 과정을 거치면 ch09Service와 ch09Dao는 한번만 생성된다.
+		 이미 여기서 생성이 이루어 졌기 때문이다. -->
+	<bean id="ch09Controller" class="com.company.web.controller.Ch09Controller">
+		<property name="ch09service" ref="ch09service"></property>
+		<property name="ch09service2" ref="ch09service02"></property>
+		<property name="service3" ref="ch09service03"></property>
+		<property name="strData" value="injected in servlet-context property"></property>
+		<!-- property는 setter에 대한 내용을 미리 설정하는 것이다.
+			 name에는 setter 메소드의 set부분을 제외한 나머지 부분에서 첫글자를 소문자로 바꾸면 되고
+			 ref에는 어떠한 것을 set하는 대상의 id를 가져온다.
+			 여기서는 Controller에서 Ch09Service의 getInsert 메소드를 사용하기 위한
+			 Ch09Service 객체가 있어야 한다. 그러므로 Ch09Service Setter메소드인 SetService()에서
+			 Set을 뺀 Service의 앞자리가 소문자인 serivce를 name으로 설정하고
+			 Set이 되는 대상인 ch09Service의 bean객체의 id를 가져온다. -->
+	</bean>
+	<bean id="ch09service" class="com.company.web.service.Ch09Service_injection">
+		<property name="ch09dao" ref="ch09dao"></property>
+	</bean>
+	<bean id="ch09service02" class="com.company.web.service.Ch09Service_injection02">
+		<property name="ch09dao2" ref="ch09dao"></property>
+	</bean>
+	<bean id="ch09service03" class="com.company.web.service.Ch09Service_injection03">
+		<property name="dao" ref="ch09dao"></property>
+	</bean>
+	<!-- 이렇듯 동일한 dao를 전달받아 사용할 수 있다. -->
+	<!-- dao는 가장 최하위이기 때문에 받을 것이 없으므로 property가 없어도 된다. -->
+	<bean id="ch09dao" class="com.company.web.dao.Ch09Dao_injection">
+	</bean>
+	<!-- 즉 전체적으로 Contoller <- Service <- Dao 이렇게 종속된다. -->
+	<!-- 위와 같은 것을 @Component와 @Autowired를 통해 처리가 가능하다. -->
+	<!-- 고로 위의 것은 단순히 참고용이고 @Component와 @Autowired를 사용하라 -->
+	
+	<!-- service06은 기본 생성자가 아닌 매개변수가 있는 생성자를 가지기때문에
+		 생성자 매게변수 선언이 아래와 같이 작업이 필요하다. -->
+	<!-- <bean id ="ch09service06" class="com.company.web.service.Ch09Service_injection06">
+		<constructor-arg name="msg" value="String constructor-arg"></constructor-arg>
+		<constructor-arg name="num" value="100"></constructor-arg>
+	</bean>	 -->
+	
 </beans>

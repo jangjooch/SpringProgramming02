@@ -2,6 +2,17 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <display-name>SpringProgramming02</display-name>
   
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 프로젝트 시작 시 반영할 것을 설정 -->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>/WEB-INF/spring/root-context.xml</param-value>
+  </context-param>
+  <!-- 최상위 설정파일 root-context.xml 선언 -->
+  <!-- 즉 공용적으로 사용할 bean에 대한 선언을 위함이다. -->
+  
   <filter>
   	<filter-name>CharacterEncodingFilter</filter-name>
   	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -28,6 +39,21 @@
   <servlet-mapping>
   	<servlet-name>dispatcher</servlet-name>
   	<url-pattern>/</url-pattern>
+  	<!-- context root로 요청이 처음 접근할 때 무조건 dispatcher가 실행되도록 한다. -->
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>dispatcher_ch09_01</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>/WEB-INF/spring/servlet-context_ch09_01.xml</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>dispatcher_ch09_01</servlet-name>
+  	<url-pattern>/dispatcher_ch09_01</url-pattern>
   	<!-- 요청이 처음 접근할 때 무조건 dispatcher가 실행되도록 한다. -->
   </servlet-mapping>
   
