@@ -50,13 +50,17 @@
 		<p>
 			<button id="btn01" onclick="btnClick01()" type="button" class="btn btn-primary">Connection Test</button><br>			
 			<div id="div01">
-				
 			</div>
 		</p>
 		<p>
 			<button id="btn02" onclick="btnClick02()" type="button" class="btn btn-primary">Get Data from member</button><br>			
-			<div id="div02">
-				
+			<div id="div02">				
+			</div>
+		</p>
+		<p>
+			<a href="boardList?pageNumber=1">Get Board Data</a>
+			<!-- 실행 시 가장 첫 페이지가 뜰 수 있도록 함. -->
+			<div id="div03">
 			</div>
 		</p>
 	</body>

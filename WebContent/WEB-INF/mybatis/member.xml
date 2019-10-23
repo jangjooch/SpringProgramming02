@@ -20,6 +20,10 @@
 		<result column="mname" property="mname"/>
 		<result column="mpassword" property="mpassword"/>
 	</resultMap>
-
+	
+	<insert id="insertMember" parameterType="com.company.web.dto.Ch10Member">
+		insert into member (mid,mname,mpassword)
+		values(#{mid}, #{mname}, #{mpassword})
+	</insert>
 </mapper>
 <!-- DTO와 SQL과 sql 결과를 Mapping하는 것이다. -->

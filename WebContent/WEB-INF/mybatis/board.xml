@@ -1,7 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
+	<select id="selectList"
+		resultType="com.company.web.dto.Ch10Board" parameterType="map">
+		<!-- "com.company.web.dto.Ch10Board"이러한 형태로 저장할 것이다. -->
+		<!-- 이미 Ch10BoardDao에서 selectList를 사용하였기에 List로 받아올 것을 암시했다. 고로 result이후가 
+			필요없다. -->
+			<!-- &lt. < less than  &gt. > greater than -->
+		SELECT
+		rn, bnumber, btitle, bcontent, bwriter, bhitcount, bdate
+		FROM (
+			SELECT
+			ROWNUM as rn, bnumber, btitle, bcontent, bwriter, bhitcount, bdate
+			FROM (
+				SELECT
+				bnumber, btitle, bcontent, bwriter, bhitcount, bdate
+				FROM board ORDER BY bnumber DESC
+			)
+			where rownum &lt;= #{endRowNum}
+		)
+		where rn &gt;=#{startRowNum}
+		<!-- 여기서는 ;를 붙이지 않는다. ;가 있으면 SQL 신텍스 에러가 발생한다. -->
+	</select>
 
-
-
+	<select id="selectTotalRowNum" resultType="int">
+		SELECT
+    	count(*)
+		FROM board
+	</select>
+	
+	
+	<insert id="insertList"
+		parameterType="com.company.web.dto.Ch10Board">
+		<!-- 전달받을 파라미터의 타입이 Ch10Board형태의 클래스임을 지정하여 해당
+			 클래스에서 getter로 받아와 SQL을 형성할 수 있도록 한다. -->
+		<selectKey keyProperty="bnumber" resultType="int" order="BEFORE">
+			<!-- primary ket설정. primary key값 형태, order는 끝나고 실행할 것인가. -->
+			select SEQUENCE1.nextval from dual
+			<!-- 이 값을 bnumber로 지정하여 저장할 수 있도록 한다 -->
+			<!-- 현재에서는 1가지의 table만 사용하기에 사용하지 않아도 문제가 없지만
+				 동시에 2개 이상의 table에 내용에 따라 작성이 이루어져야 하는 경우
+				 SEQUENCE의 다음 값을 미리 받아 동시에 처리하기 위함이다. -->
+		</selectKey>
+		<!-- 위의 작업을 통해 primary키값이 될 SEQUENCE의 값을 받아 놓았기에 다음에 이루어질
+			 SQL에 대하여 문제없이 값을 넣을 수 있다. -->
+		INSERT into board(bnumber, btitle, bcontent, bwriter, bhitcount,
+		bdate)
+		values(#{bnumber}, #{btitle}, #{bcontent}, #{bwriter}, 0,
+		sysdate)
+		<!-- selectKey를 하기 이전의 bnumber는 SEQUENCE1.nextval 였다-->
+		<!-- 하지만 insert를 실행하기 전에 미리 SEQUENCE1의 다음 값을 bnumber로 저장하여 이를
+			 사용하여 insert를 하는 것이다. 이렇게 하는 이유는 이 bnumber를 전달에 사용되는
+			 dto.Ch10Board에 값을 추가하기 위함이다. 즉 본디 SEQUENCE로 받아 저장될 시 
+			 id로 지정되는 것이 아니기에 값을 받을 수 없다. 즉 이렇게 받아 저장함으로
+			 다른 단계에서 bnumber를 통해 받을 수 있도록 함. -->
+	</insert>
+	<!-- select는 저장될 타입을 지정 insert는 저장할 타입을 지정 -->
+	
+	<resultMap type="com.company.web.dto.Ch10Board"
+		id="resultMap01">
+		<!-- colume의 이름과 저장될 dto 필드의 변수와 이름이 다를 경우 사용한다. -->
+		<!-- ex) <result column="bwriter" property="bowner"/> -->
+		<!-- resultType을 사용하는 경우는 자동적으로 Matching이 가능할 때 사용하는 것이다. -->
+		<!-- 즉 여기는 resultType을 하기전 다를 경우 Matching을 위하여 사용하는 것이다. -->
+		<!-- 이와 같은 의도로 parameterMap을 쓰일 수 있다. -->
+		<result column="bnumber" property="bnumber" />
+		<result column="btitle" property="btitle" />
+		<result column="bcontent" property="bcontent" />
+		<result column="bhitcount" property="bhitcount" />
+		<result column="bdate" property="bdate" />
+	</resultMap>
+	
+	<select id="selectByBnumber" parameterType="int" resultType="com.company.web.dto.Ch10Board">
+		select bnumber, btitle, bcontent, bwriter, bhitcount, bdate
+		from board
+		where bnumber=#{bnumber}
+	</select>
+	
+	<update id="updateHitCount" parameterType="int">
+		update board
+		set bhitcount=bhitcount+1
+		where bnumber=#{bnumber}
+	</update>
+	
+	<update id="updateBoard" parameterType="com.company.web.dto.Ch10Board">
+		update board
+		set btitle=#{btitle}, bcontent=#{bcontent}
+		where bnumber=#{bnumber}
+	</update>
+	
+	<delete id="deleteBoardByBnumber" parameterType="int">
+		delete from board
+		where bnumber=#{bnumber}
+	</delete>
+	
 </mapper>

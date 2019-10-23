@@ -18,6 +18,7 @@
 	
 	<!-- 메이븐을 통해 기본 class는 가져온다. -->
 	<!-- Oracle BD MS 의 jdbc 설정을 위함  -->
+	<!-- javax.sql.DataSource -->
 	<bean id="dataSource" class = "org.apache.commons.dbcp2.BasicDataSource"
 			destroy-method="close">
 		<!-- property의 value들은 WEB-INF/lib에 있는 .jar에서 가져온다. -->
@@ -31,12 +32,13 @@
 		</property>
 		<property name="username" value="user"></property>
 		<property name="password" value="iot12345"></property>
-		<!-- 여기까지 단순 연결을 위한 설정 -->
+		<!-- 여기까지 연결 로그인을 위한 설정 -->
 		<property name="initialSize" value="1"></property>
 		<property name="maxTotal" value="2"></property>
 		<property name="maxIdle" value="1"></property>
 		<!-- password 이후부터 여기까지는 Connection 허용 범위 설정 -->
-		<!-- maxTotal 은 최대 동시 연결 가능 수. -->
+		<!-- maxTotal 은 최대 동시 연결 가능 수.
+			 maxIdle은 최소 Connection 사이즈 -->
 	</bean>
 	
 	<!-- 데이터 전달을 위한 ORM 공용 관리 객체 생성
@@ -44,7 +46,7 @@
 	<!-- 여기는 구글링하거나 그냥 복사해라 딱히 경로설정하는 것 외에는 의미가 없다 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<!-- Connection Pool을 전달한다. -->
+		<!-- bean태그 id가 dataSource인 것을 가져와 Connection Pool을 지정한다. ref는 setter 지정이다. -->
 		<property name="mapperLocations" value="/WEB-INF/mybatis/*.xml"></property>
 		<!-- MyBatis 설정파일 경로 지정 -->
 	</bean>
