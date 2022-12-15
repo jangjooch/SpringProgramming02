@@ -9,7 +9,7 @@
 
 	<properties>
 		<!-- 변수 설정. 버전을 동일 시하기 위한 -->
-		<spring-version>5.2.0.RELEASE</spring-version>
+		<spring-version>5.2.20.RELEASE</spring-version>
 		<!-- spring과 관련된 라이브러리는 버전이 전체적으로 동일해야 함으로 -->
 	</properties>
 
